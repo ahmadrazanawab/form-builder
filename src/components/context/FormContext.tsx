@@ -21,7 +21,7 @@ const FormContext = createContext<FormContextType | null>(null);
 export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [fields, setFields] = useState<FormField[]>([]);
   const [submissions, setSubmissions] = useState<Record<string, string>[]>([]);
-    const [type, setType] = useState<string>('');
+    const [type, setType] = useState<string>('text');
     const [formName, setFname] = useState<string>(''); 
     const host = "http://localhost:5001";
     // fetch all form

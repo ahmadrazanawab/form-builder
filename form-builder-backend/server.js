@@ -8,15 +8,16 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const port = process.env.PORT
+const port = process.env.MYSQLPORT
 // MySQL connection
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    user:process.env.DB_USER,
     database: process.env.DB_NAME,
-  });
-
+    password: process.env.DB_PASSWORD,
+    port:process.env.DB_PORT
+});
+  
 db.connect((err) => {
     if (err) console.error("DB connection error: ", err);
     else console.log("DB connected.");

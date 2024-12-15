@@ -7,14 +7,13 @@ const FormBuilder: React.FC = () => {
     const { fields, addField, removeField,type, setType,formName, setFname} = useFormContext();
     const [label, setLabel] = useState('');
     const [placeholder, setPlaceholder] = useState('');
-    const [name, setName] = useState('');
-    const [value, setValue] = useState('');
+    const [name, setName] = useState('');;
 
     const formhanldeName = () => {
         setFname(formName);
     }
     const handleAddField = () => {
-        addField({ id:Date.now().toString(), label, type,value,name, placeholder});
+        addField({ id:Date.now().toString(), label, type,name, placeholder});
         setLabel('');
         setName('')
         setPlaceholder('');
