@@ -1,27 +1,43 @@
 import React, { useState } from 'react';
 import { useFormContext } from '../context/FormContext';
 import { Link } from 'react-router-dom';
+import { MdOutlineAddToPhotos } from "react-icons/md";
 
 const FormBuilder: React.FC = () => {
-    const { fields, addField, removeField } = useFormContext();
+    const { fields, addField, removeField,type, setType,formName, setFname} = useFormContext();
     const [label, setLabel] = useState('');
-    const [type, setType] = useState('text');
     const [placeholder, setPlaceholder] = useState('');
     const [name, setName] = useState('');
+    const [value, setValue] = useState('');
 
+    const formhanldeName = () => {
+        setFname(formName);
+    }
     const handleAddField = () => {
-        addField({ id: Date.now().toString(), label, type,name, placeholder });
+        addField({ id:Date.now().toString(), label, type,value,name, placeholder});
         setLabel('');
         setName('')
         setPlaceholder('');
     };
-
+   
 
     return (
-        <div className="p-4 bg-slate-100">
+        <div className="p-4 bg-slate-100 md:min-h-[100vh]">
             <div className='flex flex-col justify-center items-center'>
                 <h2 className="text-xl font-bold mb-4">Build Your Form</h2>
                 <div className="flex bg-white flex-col w-[50%] shadow-md   px-4 py-4 rounded">
+                <label htmlFor="">Enter form Name</label>
+                    <div className='flex justify-between items-center'>
+                    <input
+                        type="text"
+                        className="border-[1px] border-gray-900 outline-teal-500 rounded  p-2 my-2 flex-grow"
+                        placeholder="Enter your label"
+                        value={formName}
+                        onChange={(e) => setFname(e.target.value)}
+                        />
+                        <MdOutlineAddToPhotos onClick={formhanldeName} className='size-8 cursor-pointer hover:scale-95'/>
+                    </div>
+                    
                     <label htmlFor="">Enter Label</label>
                     <input
                         type="text"
@@ -64,7 +80,7 @@ const FormBuilder: React.FC = () => {
                     </div>
                 </div>
                 <div className='w-[50%] mt-4 shadow-md rounded'>
-                {fields.length === 0 ?<h1 className='py-4 px-2 rounded bg-white text-2xl font-serif'>Opps! Not fields.Create One</h1>: <ul className='p-4 bg-white rounded'>
+                {fields.length === 0 ?<h1 className='py-4 px-2 rounded bg-white text-2xl font-serif'>No Fields. Create new One</h1>: <ul className='p-4 bg-white rounded'>
                     {fields.map((field) => (
                         <li key={field.id} className="flex my-2 justify-between border-b-2  p-2">
                             {field.label} ({field.type})
@@ -77,7 +93,7 @@ const FormBuilder: React.FC = () => {
                         </li>
                     ))}
                         <div className='my-4'>
-                            <Link to='/view-form' className='bg-green-600 text-white border-[1px] border-green-600 px-3 py-2 rounded'>Show Form</Link>
+                            <Link to='/view-form' onClick={formhanldeName} className='bg-green-600 text-white border-[1px] border-green-600 px-3 py-2 rounded'>Show Form</Link>
                        </div>
                 </ul>}
                 </div>

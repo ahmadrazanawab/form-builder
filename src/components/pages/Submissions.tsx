@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormContext } from '../context/FormContext';
 
 const Submissions: React.FC = () => {
-  const { submissions } = useFormContext();
-  console.log(submissions)
+  const { submissions,fetchform}= useFormContext();
+    console.log(submissions)
+    useEffect(() => {
+        fetchform()
+    }, []);
   return (
-    <div className="p-4">
+    <div className="bg-slate-100 p-4">
       <h2 className="text-xl font-bold mb-4">Submissions</h2>
       <ul>
         {submissions.map((submission, index) => (
-          <li key={index} className="border-b p-2">
+          <li key={index} className="border-b-4 my-2  p-4">
                 {JSON.stringify(submission)}
-                {submission.name}
+                {submission.type}
           </li>
         ))}
-      </ul>
+          </ul>
     </div>
   );
 };
